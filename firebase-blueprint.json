@@ -1,0 +1,44 @@
+{
+  "entities": {
+    "Task": {
+      "title": "Task",
+      "description": "A productivity task item",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" },
+        "completed": { "type": "boolean" },
+        "priority": { "type": "string", "enum": ["low", "medium", "high"] },
+        "category": { "type": "string" },
+        "dueDate": { "type": "string", "format": "date-time" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "title", "completed", "priority", "category", "createdAt"]
+    },
+    "UserStats": {
+      "title": "User Stats",
+      "description": "User productivity statistics",
+      "type": "object",
+      "properties": {
+        "completedToday": { "type": "integer" },
+        "totalCompleted": { "type": "integer" },
+        "streak": { "type": "integer" },
+        "productivityScore": { "type": "integer" },
+        "focusMinutes": { "type": "integer" },
+        "aiSuggestionsUsed": { "type": "integer" },
+        "lastCompletedDate": { "type": "string" }
+      }
+    }
+  },
+  "firestore": {
+    "/users/{userId}/tasks/{taskId}": {
+      "schema": "Task",
+      "description": "User specific tasks"
+    },
+    "/users/{userId}/stats/main": {
+      "schema": "UserStats",
+      "description": "Global stats for the user"
+    }
+  }
+}
